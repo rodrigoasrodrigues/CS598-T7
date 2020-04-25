@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="favicon.ico"> -->
+
+    <title>Checkout example for Bootstrap</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Dataset selection</h2>
+            <p class="lead">Choose a dataset below or upload a new one to use the tool.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Available datasets</span>
+                    <span class="badge badge-secondary badge-pill">3</span>
+                </h4>
+                <form class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Promo code">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary">search</button>
+                        </div>
+                    </div>
+                </form>
+
+                <ul class="list-group mb-1">
+                    {% for dataset in range(5) %}
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Dataset name</h6>
+                            <small class="text-muted">Brief description - date</small>
+                        </div>
+                        <span class="text-muted">nnnn words</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <button class="btn btn-secondary btn-block" type="submit">Add new dataset</button>
+
+
+            </div>
+            <div class="col-md-8">
+                <h4 class="mb-3">Database Name</h4>
+                <hr class="mb-4">
+                <p>Brief Description</p>
+                <p>Number of Words in dataset: 456</p>
+                <p>Distinct words in model: 266</p>
+                <p>Labels: <span class="text-success">500</span> positive - <span class="text-danger">257</span> negative</p>
+                <button class="btn btn-success btn-lg btn-block" type="submit">Use database</button>
+                </form>
+            </div>
+        </div>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">Rodrigo Rodrigues - Spring 2020</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Code @ Github</a></li>
+                <li class="list-inline-item"><a href="#">MCS-DS @ UIUC</a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+
+</html>
