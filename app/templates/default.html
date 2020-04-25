@@ -47,7 +47,7 @@
                     </li>
                     {% endfor %}
                 </ul>
-                <button class="btn btn-secondary btn-block" type="submit">Add new dataset</button>
+                <a href="/add_dataset" class="btn btn-secondary btn-block" role="button">Add new dataset</a>
 
 
             </div>
@@ -57,19 +57,13 @@
                 <p>Brief Description</p>
                 <p>Number of Words in dataset: 456</p>
                 <p>Distinct words in model: 266</p>
-                <p>Labels: <span class="text-success">500</span> positive - <span class="text-danger">257</span> negative</p>
+                <p>Labels: <span class="text-success">500</span> positive - <span class="text-danger">257</span>
+                    negative</p>
                 <button class="btn btn-success btn-lg btn-block" type="submit">Use database</button>
                 </form>
             </div>
         </div>
-
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">Rodrigo Rodrigues - Spring 2020</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Code @ Github</a></li>
-                <li class="list-inline-item"><a href="#">MCS-DS @ UIUC</a></li>
-            </ul>
-        </footer>
+        {% include 'footer.html' %}
     </div>
 </body>
 
