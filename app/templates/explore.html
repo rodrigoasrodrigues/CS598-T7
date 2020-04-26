@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Explore the dataset</h2>
+        </div>
+        <div class="jumbotron p-4">
+            <div class="row">
+                <div class="col-md-3"><a href="/" class="btn btn-lg btn-secondary btn-block" role="button">Back </a>
+                </div>
+                <div class="col-md-3"><strong>Dataset:</strong><br />Name</div>
+                <div class="col-md-3"><strong>Labels:</strong><br /> Name</div>
+                <div class="col-md-3"><strong>Threshold:</strong> 0.5<br />
+                    <input type="range" class="custom-range" id="customRange1">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Positive Words</span>
+                </h4>
+                <form class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="word">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary">search</button>
+                        </div>
+                    </div>
+                </form>
+                <div class='list-overflow'>
+                    <ul class="list-group mb-1 mr-1">
+                        {% for dataset in range(50) %}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed pt-1 pb-1">
+                            <div>
+                                <span class="my-0">word</span>
+                            </div>
+                            <span class="text-muted">0.98</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-3 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Related Words</span>
+                </h4>
+
+                <div class='list-overflow related-words'>
+                    <ul class="list-group mb-1 mr-1">
+                        {% for dataset in range(50) %}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed pt-1 pb-1">
+                            <div>
+                                <span class="my-0">word</span>
+                            </div>
+                            <span class="text-muted">0.98</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h4 class="mb-3">graph</h4>
+
+            </div>
+        </div>
+        {% include 'footer.html' %}
+    </div>
+</body>
+
+</html>
