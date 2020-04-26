@@ -38,7 +38,7 @@ class DatasetFile(db.Model):
     def __repr__(self):
         return f'<DatasetFile {id}:{file_hash}>'
 
-class Word2VecModel(db.Mode):
+class Word2VecModel(db.Model):
     __tablename__ = "w2v_models"
 
     id = db.Column(db.Integer, primary_key=True)

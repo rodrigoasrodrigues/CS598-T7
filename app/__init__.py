@@ -11,6 +11,7 @@ migrate = Migrate(app,db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
+from app.models import tables
 from app.controllers import default
 from app.controllers import add_dataset
 from app.controllers import explore
