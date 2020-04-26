@@ -20,7 +20,7 @@ class LabelFile(db.Model):
         self.negative_labels = negative_labels
 
     def __repr__(self):
-        return f'<LabelFile {id}:{file_hash}>'
+        return f'<LabelFile {self.id}:{self.file_hash}>'
 
 class DatasetFile(db.Model):
     __tablename__ = "dataset_files"
@@ -36,7 +36,7 @@ class DatasetFile(db.Model):
         self.words = words
 
     def __repr__(self):
-        return f'<DatasetFile {id}:{file_hash}>'
+        return f'<DatasetFile {self.id}:{self.file_hash}>'
 
 class Word2VecModel(db.Model):
     __tablename__ = "w2v_models"
@@ -44,7 +44,8 @@ class Word2VecModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_hash = db.Column(db.String(32), unique=True)
     description = db.Column(db.Text, unique=False)
-
+    words = db.Column(db.Integer, primary_key=False)
+    
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset_files.id'))
     dataset = db.relationship('DatasetFile',foreign_keys=dataset_id)
 
@@ -58,4 +59,4 @@ class Word2VecModel(db.Model):
         self.label_id = label_id
 
     def __repr__(self):
-        return f'<Word2VecModel {id}:{file_hash}>'
+        return f'<Word2VecModel {self.id}:{self.file_hash}>'
