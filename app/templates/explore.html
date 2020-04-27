@@ -12,8 +12,8 @@
             <div class="row">
                 <div class="col-md-3"><a href="/" class="btn btn-lg btn-secondary btn-block" role="button">Back </a>
                 </div>
-                <div class="col-md-3"><strong>Dataset:</strong><br />Name</div>
-                <div class="col-md-3"><strong>Labels:</strong><br /> Name</div>
+                <div class="col-md-3"><strong>Dataset:</strong><br /> {{ model.dataset.name }}</div>
+                <div class="col-md-3"><strong>Labels:</strong><br /> {{ model.label.name }}</div>
                 <div class="col-md-3"><strong>Threshold:</strong> 0.5<br />
                     <input type="range" class="custom-range" id="customRange1">
                 </div>
@@ -26,21 +26,24 @@
                 </h4>
                 <form class="mb-3">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="word">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">search</button>
-                        </div>
+                        <input type="text" class="form-control" placeholder="search">
                     </div>
                 </form>
                 <div class='list-overflow'>
-                    <ul class="list-group mb-1 mr-1">
-                        {% for dataset in range(50) %}
-                        <li class="list-group-item d-flex justify-content-between lh-condensed pt-1 pb-1">
-                            <div>
-                                <span class="my-0">word</span>
-                            </div>
-                            <span class="text-muted">0.98</span>
-                        </li>
+                    {{selected}}
+                    <ul class="list-group mb-1">
+                        {% for word in words %}
+                        {% if word[1] != selected %} <a href="/explore/{{model.id}}/{{word[1]}}" class="dataset-link">
+                            {% endif %}
+                            <li
+                                class="list-group-item d-flex justify-content-between lh-condensed pt-1 pb-1  {% if  word[1]==selected%} bg-light selected-model {% endif %} ">
+                                <div>
+                                    <span class="my-0">{{word[1]}}</span>
+                                </div>
+                                <span class="text-muted score">{{"%.2f"|format(word[0])}}</span>
+                            </li>
+                            {% if word is not sameas selected %} </a>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
@@ -52,13 +55,13 @@
                 </h4>
 
                 <div class='list-overflow related-words'>
-                    <ul class="list-group mb-1 mr-1">
-                        {% for dataset in range(50) %}
+                    <ul class="list-group mb-1 ">
+                        {% for word in related_words %}
                         <li class="list-group-item d-flex justify-content-between lh-condensed pt-1 pb-1">
                             <div>
-                                <span class="my-0">word</span>
+                                <span class="my-0">{{word[1]}}</span>
                             </div>
-                            <span class="text-muted">0.98</span>
+                            <span class="text-muted score">{{"%.2f"|format(word[0])}}</span>
                         </li>
                         {% endfor %}
                     </ul>

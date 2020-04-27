@@ -1,3 +1,5 @@
+@muted-text-color: #6c757d!important;
+@success-text-color: #28a745!important;
 div.list-overflow {
     max-height: 300px;
     overflow-y: auto;
@@ -6,4 +8,18 @@ div.list-overflow {
     &.related-words{
         max-height: 350px;
     }
+}
+
+a.dataset-link{
+    text-decoration:none;
+    color: @muted-text-color;
+}
+
+.selected-model{
+    box-shadow: 0px 0px 5px inset rgba(40, 167, 69,0.3);
+    color: @success-text-color;
+    h6, .text-muted{
+        color: @success-text-color;
+    }
+
 }

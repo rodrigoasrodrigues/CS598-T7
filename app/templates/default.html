@@ -20,31 +20,30 @@
                 </h4>
                 <form class="mb-3">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="search...">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">search</button>
-                        </div>
+                        <input type="text" class="form-control" placeholder="search">
                     </div>
                 </form>
-
-                <ul class="list-group mb-1">
-                    {% for model in model_list %}
-                    {% if model.id is not sameas selected %} <a href="/model/{{model.id}}"> {% endif %}
-                        <li
-                            class="list-group-item d-flex justify-content-between lh-condensed {% if model.id == selected %} bg-light {% endif %} ">
-                            <div>
-                                <h6 class="my-0 {% if model.id == selected %} text-success {% endif %}">
-                                    {{model.dataset.name}}</h6>
-                                <small
-                                    class="{% if model.id == selected %} text-success {% else %} text-muted  {% endif %}">{{model.description}}</small>
-                            </div>
-                            <span
-                                class="{% if model.id == selected %} text-success {% else %} text-muted  {% endif %}">{{model.dataset.words}}
-                                words</span>
-                        </li>
-                        {% if model.id is not sameas selected %} </a> {% endif %}
-                    {% endfor %}
-                </ul>
+                <div class="list-overflow">
+                    <ul class="list-group mb-1">
+                        {% for model in model_list %}
+                        {% if model.id is not sameas selected %} <a href="/model/{{model.id}}" class="dataset-link">
+                            {% endif %}
+                            <li
+                                class="list-group-item d-flex justify-content-between lh-condensed {% if model.id == selected %} bg-light selected-model {% endif %} ">
+                                <div>
+                                    <h6 class="my-0">
+                                        {{model.dataset.name}}</h6>
+                                    <small
+                                        class="text-muted">{{model.description}}</small>
+                                </div>
+                                <span
+                                    class="{% if model.id == selected %} text-success {% else %} text-muted  {% endif %}">{{model.dataset.words}}
+                                    words</span>
+                            </li>
+                            {% if model.id is not sameas selected %} </a> {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
                 <a href="/add_dataset" class="btn btn-secondary btn-block" role="button">Add new dataset</a>
 
 

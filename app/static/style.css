@@ -6,3 +6,15 @@ div.list-overflow {
 div.list-overflow.related-words {
   max-height: 350px;
 }
+a.dataset-link {
+  text-decoration: none;
+  color: #6c757d !important;
+}
+.selected-model {
+  box-shadow: 0px 0px 5px inset rgba(40, 167, 69, 0.3);
+  color: #28a745 !important;
+}
+.selected-model h6,
+.selected-model .text-muted {
+  color: #28a745 !important;
+}
