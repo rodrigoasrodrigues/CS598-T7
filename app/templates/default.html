@@ -20,7 +20,7 @@
                 </h4>
                 <form class="mb-3">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Promo code">
+                        <input type="text" class="form-control" placeholder="search...">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-secondary">search</button>
                         </div>
@@ -51,16 +51,18 @@
             </div>
             <div class="col-md-8">
                 {% if model %}
-                <h4 class="mb-3">Model: {{model.dataset.name}} - {{model.label.name}}</h4>
+                <h4 class="mb-3 text-muted">Model: {{model.dataset.name}} - {{model.label.name}}</h4>
                 <hr class="mb-4">
                 <p>{{model.description}}</p>
                 <p><strong>Number of Words in dataset:</strong> {{model.dataset.words}}</p>
                 <p><strong>Distinct words in model:</strong> {{model.words}}</p>
                 <p><strong>Labels:</strong> <span class="text-success">{{model.label.positive_labels}}</span> positive -
                     <span class="text-danger">{{model.label.negative_labels}}</span> negative</p>
-                <a href="/explore" class="btn btn-success btn-lg btn-block" role="button">Use database</a>
+                <a href="/explore/{{model.id}}" class="btn btn-success btn-lg btn-block" role="button">Use database</a>
                 {% else %}
-                No model
+                <div class="alert alert-secondary" role="alert">
+                    Select a model on the left to explore!
+                </div>
                 {% endif %}
             </div>
         </div>
