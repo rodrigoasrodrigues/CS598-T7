@@ -4,6 +4,7 @@
 {% include 'head.html' %}
 
 <body class="bg-light">
+    <form action="/train" method="POST" enctype="multipart/form-data">
     <div class="container">
         <div class="py-5 text-center">
             <h2>Add new dataset</h2>
@@ -16,42 +17,42 @@
                 </h4>
                 <hr class="mb-4">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="datasetRadio" id="exampleRadios1" value="option1"
-                        checked>
-                    <label class="form-check-label" for="exampleRadios1">
+                    <input class="form-check-input" type="radio" name="datasetRadio" id="radUploadDataset" 
+                    value="new" checked>
+                    <label class="form-check-label" for="radUploadDataset">
                         Upload dataset
                     </label>
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                        <span class="input-group-text" id="fupDatasetAddon01">Upload</span>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"
-                            aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <input type="file" class="custom-file-input" id="fupDataset" name="fupDataset"
+                            aria-describedby="fupDatasetAddon01">
+                        <label class="custom-file-label" for="fupDataset">Choose file</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="txtLabelName" placeholder="Label file name">
+                    <input type="text" class="form-control" id="txtDatasetName" name="txtDatasetName" placeholder="Dataset file name">
                     <small id="hlpLabelName" class="form-text text-muted">I need help with this file.</small>
                 </div>
 
                 <span class="mb-4">Or choose one of the available datasets</span>
 
                 <ul class="list-group mb-1">
-                    {% for dataset in range(5) %}
+                    {% for dataset in dataset_list %}
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="datasetRadio"
-                                    id="radDataset{{ dataset }}" value="option1" checked>
-                                <label class="form-check-label" for="radDataset{{ dataset }}">
-                                    <h6 class="my-0">Dataset name</h6>
+                                    id="radDataset{{ dataset.id }}" value="{{ dataset.id }}">
+                                <label class="form-check-label" for="radDataset{{ dataset.id }}">
+                                    <h6 class="my-0">{{dataset.name}}</h6>
                                 </label>
                             </div>
                         </div>
-                        <span class="text-muted">nnnn words</span>
+                        <span class="text-muted">{{dataset.words}} words</span>
                     </li>
                     {% endfor %}
                 </ul>
@@ -63,41 +64,41 @@
                 </h4>
                 <hr class="mb-4">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="datasetRadio" id="exampleRadios1" value="option1"
-                        checked>
-                    <label class="form-check-label" for="exampleRadios1">
+                    <input class="form-check-input" type="radio" name="labelRadio" id="radLabelUpload"
+                    value="new" checked>
+                    <label class="form-check-label" for="radLabelUpload">
                         Upload labels
                     </label>
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                        <span class="input-group-text" id="fupLabelAddon01">Upload</span>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"
-                            aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <input type="file" class="custom-file-input" id="fupLabel" name="fupLabel"
+                            aria-describedby="fupLabelAddon01">
+                        <label class="custom-file-label" for="fupLabel">Choose file</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="txtLabelName" placeholder="Label file name">
+                    <input type="text" class="form-control" id="txtLabelName" name="txtLabelName" placeholder="Label file name">
                     <small id="hlpLabelName" class="form-text text-muted">I need help with this file.</small>
                 </div>
                 <span class="mb-4">Or choose one of the available label files</span>
 
                 <ul class="list-group mb-1">
-                    {% for dataset in range(2) %}
+                    {% for label in label_list %}
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="datasetRadio"
-                                    id="radLabel{{ dataset }}" value="option1" checked>
-                                <label class="form-check-label" for="radLabel{{ dataset }}">
-                                    <h6 class="my-0">Dataset name</h6>
+                                <input class="form-check-input" type="radio" name="labelRadio"
+                                    id="radLabel{{ label.id }}" value="{{ label.id }}">
+                                <label class="form-check-label" for="radLabel{{ label.id }}">
+                                    <h6 class="my-0">{{label.name}}</h6>
                                 </label>
                             </div>
                         </div>
-                        <span class="text-muted">nnnn labels</span>
+                        <span class="text-muted">{{label.num_labels()}} labels</span>
                     </li>
                     {% endfor %}
                 </ul>
@@ -122,6 +123,23 @@
         </div>
         {% include 'footer.html' %}
     </div>
+    
+</form>
 </body>
+<script>
+    $(document).ready(()=>{
 
+        $("input[type=file]").change(function () {
+            
+            var fieldVal = $(this).val();
+            
+            // Change the node's value by removing the fake path (Chrome)
+            fieldVal = fieldVal.replace("C:\\fakepath\\", "");
+            console.log(fieldVal);
+            if (fieldVal != undefined || fieldVal != "") {
+                $(this).next(".custom-file-label").text(fieldVal);
+            }
+        });
+    });
+</script>
 </html>

@@ -5,13 +5,13 @@ class LabelFile(db.Model):
     __tablename__ = "label_files"
 
     id = db.Column(db.Integer, primary_key=True)
-    file_hash = db.Column(db.String(32), unique=True)
+    file_hash = db.Column(db.String(32), unique=False)
     name = db.Column(db.String(80), unique=False)
     positive_labels = db.Column(db.Integer, primary_key=False)
     negative_labels = db.Column(db.Integer, primary_key=False)
 
-    def num_labels():
-        return positive_labels+negative_labels
+    def num_labels(self):
+        return self.positive_labels+self.negative_labels
 
     def __init__(self, file_hash, name, positive_labels, negative_labels):
         self.file_hash = file_hash
@@ -26,7 +26,7 @@ class DatasetFile(db.Model):
     __tablename__ = "dataset_files"
 
     id = db.Column(db.Integer, primary_key=True)
-    file_hash = db.Column(db.String(32), unique=True)
+    file_hash = db.Column(db.String(32), unique=False)
     name = db.Column(db.String(80), unique=False)
     words = db.Column(db.Integer, primary_key=False)
 
@@ -42,7 +42,7 @@ class Word2VecModel(db.Model):
     __tablename__ = "w2v_models"
 
     id = db.Column(db.Integer, primary_key=True)
-    file_hash = db.Column(db.String(32), unique=True)
+    file_hash = db.Column(db.String(32), unique=False)
     description = db.Column(db.Text, unique=False)
     words = db.Column(db.Integer, primary_key=False)
     

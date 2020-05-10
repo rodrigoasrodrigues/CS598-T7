@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 000c68a54b17
+Revision ID: a584a36010be
 Revises: 
-Create Date: 2020-04-26 17:34:06.108555
+Create Date: 2020-05-10 02:52:10.941409
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '000c68a54b17'
+revision = 'a584a36010be'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,8 +23,7 @@ def upgrade():
     sa.Column('file_hash', sa.String(length=32), nullable=True),
     sa.Column('name', sa.String(length=80), nullable=True),
     sa.Column('words', sa.Integer(), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('file_hash')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('label_files',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -32,19 +31,18 @@ def upgrade():
     sa.Column('name', sa.String(length=80), nullable=True),
     sa.Column('positive_labels', sa.Integer(), nullable=True),
     sa.Column('negative_labels', sa.Integer(), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('file_hash')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('w2v_models',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('file_hash', sa.String(length=32), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('words', sa.Integer(), nullable=True),
     sa.Column('dataset_id', sa.Integer(), nullable=True),
     sa.Column('label_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['dataset_id'], ['dataset_files.id'], ),
     sa.ForeignKeyConstraint(['label_id'], ['label_files.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('file_hash')
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
