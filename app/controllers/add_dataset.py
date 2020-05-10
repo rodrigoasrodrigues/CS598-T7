@@ -1,10 +1,11 @@
 import os
 import uuid
+import json
 from flask import render_template, request, redirect
 from app import app
 from app import db
 from app.controllers.env_configs import EnvConf
-from app.models.tables import (DatasetFile, LabelFile)
+from app.models.tables import (DatasetFile, LabelFile, Word2VecModel)
 import hashlib
 
 def word_count_dataset(hash):
@@ -44,6 +45,8 @@ def add_dataset():
 
 @app.route('/train', methods=["POST"])
 def train():
+    dataset_id = -1
+    label_id = -1
     if request.files:
         if request.files["fupDataset"] and request.form['datasetRadio'] == 'new':
             dataset_file = request.files["fupDataset"]
@@ -54,6 +57,8 @@ def train():
             print(f'words = {nwords}')
             dataset = DatasetFile(dataset_hash,dataset_name,nwords)
             db.session.add(dataset)
+            db.session.commit()
+            dataset_id = dataset.id
         if request.files["fupLabel"] and request.form['labelRadio'] == 'new':
             label_file = request.files["fupLabel"]
             label_hash = save_file(label_file,EnvConf.label_dir)
@@ -62,5 +67,28 @@ def train():
             positive, negative = count_labels(label_hash)
             label = LabelFile(label_hash,label_name,positive, negative)
             db.session.add(label)
+            db.session.commit()
+            label_id = label.id
+
+    if dataset_id == -1:
+        dataset_id = int(request.form['datasetRadio'])
+    if label_id == -1:
+        label_id = int(request.form['labelRadio'])
+    description = request.form['txtDescription']
+    w2v_model = Word2VecModel('training', description, dataset_id, label_id)
+
+    db.session.add(w2v_model)
     db.session.commit()
-    return redirect('/')
+    print(f'dataset = {dataset_id} ; label = {label_id}')
+    return redirect(f'/training/{w2v_model.id}')
+
+@app.route('/training/<model_id>')
+def training(model_id):
+    model = Word2VecModel.query.get(model_id)
+    return render_template('training_model.html',model=model)
+
+    
+@app.route('/training_status/<model_id>')
+def training_status(model_id):
+    model = Word2VecModel.query.get(model_id)
+    return json.dumps(model.file_hash != 'training')

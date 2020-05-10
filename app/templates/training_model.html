@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Training Model</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Description</h3>
+                <p>{{model.description}}</p>
+                <h3>Dataset</h3>
+                <p>{{model.dataset.name}}</p>
+                <h3>Labels</h3>
+                <p>{{model.label.name}}</p>
+
+                <hr>
+                <p><strong>Number of Words in dataset:</strong> {{model.dataset.words}}</p>
+                <p><strong>Labels:</strong> <span class="text-success">{{model.label.positive_labels}}</span> positive -
+                    <span class="text-danger">{{model.label.negative_labels}}</span> negative</p>
+            </div>
+            <div class="col-md-8">
+                <div class="alert alert-warning text-center" role="alert" id="divTraining">
+                    Your model is training, this page will reload automatically when it is ready!
+                    <br/>
+                    <br/>
+                        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    
+                </div>
+                <div class="alert alert-success text-center" style="display: none;" role="alert" id="divTrained" >
+                    Your model is ready!
+                    <br/>
+                    <a href="/explore/{{model.id}}">Click here to access it!</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        {% include 'footer.html' %}
+    </div>
+</body>
+<script>
+    $(document).ready(()=>{
+        setInterval(()=>{
+            $.getJSON( "/training_status/{{model.id}}", function( data ) {
+                 if(data){
+                     $('#divTraining').hide();
+                     $('#divTrained').show();
+                 }
+                });
+
+        },500);
+
+    });
+</script>
+</html>
