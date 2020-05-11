@@ -1,6 +1,7 @@
 #datasets
 app/datasets/*
 app/labels/*
+app/w2v_models/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

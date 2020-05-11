@@ -1,4 +1,6 @@
+import os
 from app import db
+from app.controllers.env_configs import EnvConf
 
 
 class LabelFile(db.Model):
@@ -37,6 +39,13 @@ class DatasetFile(db.Model):
 
     def __repr__(self):
         return f'<DatasetFile {self.id}:{self.file_hash}>'
+
+    def get_text_data(self):
+        folder = EnvConf.dataset_dir
+        path = os.path.abspath(folder)+'/'+self.file_hash
+        with open(path) as f:
+            lines = f.readlines()
+        return lines
 
 class Word2VecModel(db.Model):
     __tablename__ = "w2v_models"
