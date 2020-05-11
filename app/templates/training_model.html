@@ -44,15 +44,19 @@
 </body>
 <script>
     $(document).ready(()=>{
-        setInterval(()=>{
-            $.getJSON( "/training_status/{{model.id}}", function( data ) {
-                 if(data){
-                     $('#divTraining').hide();
-                     $('#divTrained').show();
-                 }
+        var refresher = setInterval(()=>{
+                $.getJSON( "/training_status/{{model.id}}", function( data ) {
+                    if(data){
+                        $('#divTraining').hide();
+                        $('#divTrained').show();
+                        clearInterval(refresher)
+                    }
+                    
+                        
                 });
-
-        },500);
+            }
+        ,500);
+        $.getJSON( "/training_exec/{{model.id}}", function( data ) { console.log('training result: '+data) });
 
     });
 </script>

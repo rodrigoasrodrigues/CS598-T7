@@ -1,12 +1,15 @@
 import os
 import uuid
 import json
+import hashlib
 from flask import render_template, request, redirect
 from app import app
 from app import db
 from app.controllers.env_configs import EnvConf
 from app.models.tables import (DatasetFile, LabelFile, Word2VecModel)
-import hashlib
+from threading import Thread
+
+from app.controllers import model_trainner
 
 def word_count_dataset(hash):
     filepath = os.path.abspath(EnvConf.dataset_dir+'/'+hash)
@@ -17,8 +20,20 @@ def word_count_dataset(hash):
     return wcount
 
 def count_labels(hash):
+    filepath = os.path.abspath(EnvConf.label_dir+'/'+hash)
+    label_file = open(filepath, 'r') 
+    Lines = label_file.readlines() 
+    count = 0
+    positive = 0
+    # counts positive and total then calculate negatives
+    for line in Lines: 
+        count = count+1
+        pos = line.strip().split('\t')[1] == '1'
+        if pos:
+            positive = positive + 1
+    negative = count - positive
     #todo implement
-    return 5, 6
+    return positive, negative
 
 def save_file(file, folder):
     fullpath_folder = os.path.abspath(folder)
@@ -92,3 +107,9 @@ def training(model_id):
 def training_status(model_id):
     model = Word2VecModel.query.get(model_id)
     return json.dumps(model.file_hash != 'training')
+
+    
+@app.route('/training_exec/<model_id>')
+def training_exec(model_id):
+    hash = model_trainner.perform(model_id)
+    return json.dumps(hash)
