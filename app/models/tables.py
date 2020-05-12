@@ -1,4 +1,5 @@
 import os
+import string
 from app import db
 from app.controllers.env_configs import EnvConf
 
@@ -43,9 +44,17 @@ class DatasetFile(db.Model):
     def get_text_data(self):
         folder = EnvConf.dataset_dir
         path = os.path.abspath(folder)+'/'+self.file_hash
+        
+        #string cleaning for training
+        transtable = str.maketrans('', '', string.punctuation)
         with open(path) as f:
             lines = f.readlines()
-        return lines
+        text_docs = []
+        for line in lines:
+            doc = line.translate(transtable).lower()
+            doc_list = doc.split()
+            text_docs.append(doc_list)
+        return text_docs
 
 class Word2VecModel(db.Model):
     __tablename__ = "w2v_models"

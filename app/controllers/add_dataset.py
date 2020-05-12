@@ -9,7 +9,7 @@ from app.controllers.env_configs import EnvConf
 from app.models.tables import (DatasetFile, LabelFile, Word2VecModel)
 from threading import Thread
 
-from app.controllers import model_trainner
+from app.controllers import model_manager
 
 def word_count_dataset(hash):
     filepath = os.path.abspath(EnvConf.dataset_dir+'/'+hash)
@@ -111,5 +111,5 @@ def training_status(model_id):
     
 @app.route('/training_exec/<model_id>')
 def training_exec(model_id):
-    hash = model_trainner.perform(model_id)
+    hash = model_manager.train(model_id)
     return json.dumps(hash)
