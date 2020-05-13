@@ -91,7 +91,13 @@ def train():
         label_id = int(request.form['labelRadio'])
     description = request.form['txtDescription']
     w2v_model = Word2VecModel('training', description, dataset_id, label_id)
-
+    iterations =  int(request.form['iterations'])
+    window_size =  int(request.form['window_size'])
+    min_count =  int(request.form['min_count'])
+    w2v_model.iterations = iterations
+    w2v_model.window = window_size
+    w2v_model.min_count = min_count
+    
     db.session.add(w2v_model)
     db.session.commit()
     print(f'dataset = {dataset_id} ; label = {label_id}')

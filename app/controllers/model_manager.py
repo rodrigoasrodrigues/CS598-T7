@@ -19,7 +19,7 @@ def train(id):
     corpus = bigram_transformer[textdata]
     # actually train a model
     print('Training W2V Model')
-    model = Word2Vec(corpus, min_count=10, window=3,  workers=4 ,iter=10)
+    model = Word2Vec(corpus, min_count=w2v_model.min_count, window=w2v_model.window,  workers=4 ,iter=w2v_model.iteration)
     #for models makes sense to just keep all trained instead of trying to match hashes and deduplicate
     print('Done!')
     model_name = str(uuid.uuid4())

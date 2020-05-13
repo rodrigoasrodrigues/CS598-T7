@@ -63,6 +63,9 @@ class Word2VecModel(db.Model):
     file_hash = db.Column(db.String(32), unique=False)
     description = db.Column(db.Text, unique=False)
     words = db.Column(db.Integer, primary_key=False)
+    min_count = db.Column(db.Integer, primary_key=False)
+    window = db.Column(db.Integer, primary_key=False)
+    iterations = db.Column(db.Integer, primary_key=False)
     
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset_files.id'))
     dataset = db.relationship('DatasetFile',foreign_keys=dataset_id)
