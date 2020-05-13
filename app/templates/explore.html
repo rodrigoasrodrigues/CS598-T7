@@ -15,7 +15,7 @@
                 <div class="col-md-3"><strong>Dataset:</strong><br /> {{ model.dataset.name }}</div>
                 <div class="col-md-3"><strong>Labels:</strong><br /> {{ model.label.name }}</div>
                 <div class="col-md-3"><strong>Threshold:</strong> <span id='ThresholdValue'>{{set_t}}</span><br />
-                    <input type="range" class="custom-range" id="customRange1" max="{{max_t}}" min="{{min_t}}" step='0.01'>
+                    <input type="range" class="custom-range" id="ThresholdSelector" max="{{max_t}}" min="{{min_t}}" step='0.01' value="{{set_t}}">
                 </div>
             </div>
         </div>
@@ -69,7 +69,6 @@
 
             </div>
             <div class="col-md-6">
-                <h4 class="mb-3">graph</h4>
                 <canvas width="500" height="350"></canvas>
 
             </div>
@@ -78,13 +77,25 @@
     </div>
 </body>
 <script>
-    $(document).ready(()=>{
-        tval = $('#ThresholdValue').text();
-        model_id = {{model.id}};
-        word = '{{selected}}';
-        if(word!=''){
-            doGraph(model_id,word,tval);
+     function reloadGraph() {
+            
+            tval = $('#ThresholdValue').text();
+            model_id = {{model.id}};
+            word = '{{selected}}';
+            if(word!='None'){
+                doGraph(model_id,word,tval);
+            }
+    
         }
+    $(document).ready(()=>{
+       
+        reloadGraph();
+
+        $('#ThresholdSelector').change(reloadGraph);
+        
+        $('#ThresholdSelector').on('input', ()=>{
+            $('#ThresholdValue').text($('#ThresholdSelector').val());
+        });
     });
 </script>
 </html>

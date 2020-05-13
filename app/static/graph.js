@@ -18,8 +18,8 @@ var simulation = d3.forceSimulation()
 d3.json("/graph_data/"+mode_id+"/"+word+"/"+threshold, function(error, graph) {
 if (error) throw error;
 
-console.log("/graph_data/"+mode_id+"/"+word+"/"+threshold);
-console.log(graph);
+// console.log("/graph_data/"+mode_id+"/"+word+"/"+threshold);
+// console.log(graph);
 
 simulation
   .nodes(graph.nodes)
