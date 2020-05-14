@@ -35,7 +35,9 @@ def get_related_words(id, word):
         return []
 
 @app.route('/graph_data/<model_id>/<word>/<float:threshold>')
-def graph_data(model_id,word,threshold):
+@app.route('/graph_data/<model_id>/<word>/<float:threshold>/')
+@app.route('/graph_data/<model_id>/<word>/<float:threshold>/<force_tree>')
+def graph_data(model_id,word,threshold,force_tree='false'):
     data = get_related_words(model_id, word)
     results = [d for d in data if d[1]>=threshold]
     allnodes = []
@@ -53,6 +55,8 @@ def graph_data(model_id,word,threshold):
             if not nr[0] in allnodes:
                 allnodes.append(nr[0])
                 nodes.append({'id':nr[0],'level':2})
+                links.append({"source": w, "target": nr[0], "value": nr[1]})
+            elif force_tree == 'false':
                 links.append({"source": w, "target": nr[0], "value": nr[1]})
     ret = {'nodes':nodes, 'links':links}
     return json.dumps(ret)

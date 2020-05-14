@@ -1,4 +1,4 @@
-function doGraph(mode_id,word,threshold){
+function doGraph(mode_id,word,threshold, trees){
 
 var canvas = document.querySelector("canvas"),
 context = canvas.getContext("2d"),
@@ -15,7 +15,7 @@ var simulation = d3.forceSimulation()
 .force("charge", d3.forceManyBody())
 .force("center", d3.forceCenter(width / 2, height / 2));
 
-d3.json("/graph_data/"+mode_id+"/"+word+"/"+threshold, function(error, graph) {
+d3.json("/graph_data/"+mode_id+"/"+word+"/"+threshold+"/"+trees, function(error, graph) {
 if (error) throw error;
 
 // console.log("/graph_data/"+mode_id+"/"+word+"/"+threshold);

@@ -14,7 +14,12 @@
                 </div>
                 <div class="col-md-3"><strong>Dataset:</strong><br /> {{ model.dataset.name }}</div>
                 <div class="col-md-3"><strong>Labels:</strong><br /> {{ model.label.name }}</div>
-                <div class="col-md-3"><strong>Threshold:</strong> <span id='ThresholdValue'>{{set_t}}</span><br />
+                <div class="col-md-3">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="swTrees">
+                        <label class="custom-control-label" for="swTrees" title="Related words won't show links between them" style="cursor:help;">Force Tree</label>
+                      </div>
+                    <strong>Threshold:</strong> <span id='ThresholdValue'>{{set_t}}</span><br />
                     <input type="range" class="custom-range" id="ThresholdSelector" max="{{max_t}}" min="{{min_t}}" step='0.01' value="{{set_t}}">
                 </div>
             </div>
@@ -82,8 +87,9 @@
             tval = $('#ThresholdValue').text();
             model_id = {{model.id}};
             word = '{{selected}}';
+            trees = $('#swTrees').is(":checked");
             if(word!='None'){
-                doGraph(model_id,word,tval);
+                doGraph(model_id,word,tval,trees);
             }
     
         }
@@ -92,7 +98,7 @@
         reloadGraph();
 
         $('#ThresholdSelector').change(reloadGraph);
-        
+        $('#swTrees').change(reloadGraph);
         $('#ThresholdSelector').on('input', ()=>{
             $('#ThresholdValue').text($('#ThresholdSelector').val());
         });
