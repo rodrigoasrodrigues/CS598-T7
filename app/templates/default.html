@@ -20,7 +20,7 @@
                 </h4>
                 <form class="mb-3">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="search">
+                        <input type="text" class="form-control search-field" placeholder="search">
                     </div>
                 </form>
                 <div class="list-overflow">
@@ -29,16 +29,16 @@
                         {% if model.id is not sameas selected %} <a href="/model/{{model.id}}" class="dataset-link">
                             {% endif %}
                             <li
-                                class="list-group-item d-flex justify-content-between lh-condensed {% if model.id == selected %} bg-light selected-model {% endif %} ">
+                                class="searcheable-item list-group-item d-flex justify-content-between lh-condensed {% if model.id == selected %} bg-light selected-model {% endif %} ">
                                 <div>
-                                    <h6 class="my-0">
+                                    <h6 class="my-0 searchable-content">
                                         {{model.dataset.name}}</h6>
                                     <small
-                                        class="text-muted">{{model.description}}</small>
+                                        class="text-muted searchable-content">{{model.description}}</small>
                                 </div>
-                                <span
+                                <small
                                     class="{% if model.id == selected %} text-success {% else %} text-muted  {% endif %}">{{model.words}}
-                                    words</span>
+                                    words</small>
                             </li>
                             {% if model.id is not sameas selected %} </a> {% endif %}
                         {% endfor %}

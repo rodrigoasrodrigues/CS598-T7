@@ -31,19 +31,18 @@
                 </h4>
                 <form class="mb-3">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="search (1000 words)">
+                        <input type="text" class="form-control search-field" placeholder="search (1000 words)">
                     </div>
                 </form>
                 <div class='list-overflow'>
-                    {{selected}}
                     <ul class="list-group mb-1">
                         {% for word in words %}
                         {% if word[1] != selected %} <a href="/explore/{{model.id}}/{{word[1]}}" class="dataset-link">
                             {% endif %}
                             <li
-                                class="list-group-item d-flex justify-content-between lh-condensed pt-1 pb-1  {% if  word[1]==selected%} bg-light selected-model {% endif %} ">
+                                class="list-group-item searcheable-item d-flex justify-content-between lh-condensed pt-1 pb-1  {% if  word[1]==selected%} bg-light selected-model {% endif %} ">
                                 <div>
-                                    <span class="my-0">{{word[1]}}</span>
+                                    <span class="my-0 searchable-content">{{word[1]}}</span>
                                 </div>
                                 <span class="text-muted score">{{"%.2f"|format(word[0])}}</span>
                             </li>
