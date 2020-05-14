@@ -46,7 +46,7 @@ def get_words(id, rel_word=None):
         result = model.wv.most_similar(positive=[rel_word], topn=20)
     else:
         positive_labels, negative_labels = get_labels(id)
-        result = model.wv.most_similar(positive=positive_labels, negative=negative_labels, topn=100)
+        result = model.wv.most_similar(positive=positive_labels, negative=negative_labels, topn=1000)
     return result
 
 def get_labels(id):
