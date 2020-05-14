@@ -1,6 +1,7 @@
 import time
 import uuid
 import os
+import multiprocessing
 from gensim.test.utils import common_texts
 from gensim.models import Phrases, Word2Vec
 from app import db
@@ -19,9 +20,10 @@ def train(id):
     corpus = bigram_transformer[textdata]
     # actually train a model
     print('Training W2V Model')
-    model = Word2Vec(corpus, min_count=w2v_model.min_count, window=w2v_model.window,  workers=4 ,iter=w2v_model.iteration)
+    model = Word2Vec(corpus, min_count=w2v_model.min_count, window=w2v_model.window, workers=multiprocessing.cpu_count(), iter=w2v_model.iterations)
     #for models makes sense to just keep all trained instead of trying to match hashes and deduplicate
     print('Done!')
+    w2v_model.words = len(model.wv.vocab)
     model_name = str(uuid.uuid4())
     print(model_name)
     folder = EnvConf.model_dir
