@@ -56,7 +56,10 @@
                 });
             }
         ,2000);
-        $.getJSON( "/training_exec/{{model.id}}", function( data ) { console.log('training result: '+data) });
+        $.getJSON( "/training_exec/{{model.id}}", function( data ) { console.log('training result: '+data) })
+        .fail(function(jqxhr){
+            window.location='/error';
+        });
 
     });
 </script>
