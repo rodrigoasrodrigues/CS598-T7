@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="txtDatasetName" name="txtDatasetName" placeholder="Dataset file name">
-                    <small id="hlpLabelName" class="form-text text-muted">I need help with this file.</small>
+                    <small id="hlpLabelName" class="form-text text-muted fake-link"  data-toggle="modal" data-target="#modelAboutDataset">I need help with this file.</small>
                 </div>
 
                 <span class="mb-4">Or choose one of the available datasets</span>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="txtLabelName" name="txtLabelName" placeholder="Label file name">
-                    <small id="hlpLabelName" class="form-text text-muted">I need help with this file.</small>
+                    <small id="hlpLabelName" class="form-text text-muted fake-link"  data-toggle="modal" data-target="#modelAboutLabels">I need help with this file.</small>
                 </div>
                 <span class="mb-4">Or choose one of the available label files</span>
 
@@ -137,6 +137,63 @@
     </div>
     
 </form>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modelAboutDataset" tabindex="-1" role="dialog" aria-labelledby="About Dataset" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Dataset File</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          This should be a plain text file with a document per line.<br/>
+          If you are working with the Yelp Dataset, each line should contain a single review.<br/>
+          You don't need to remove pontuation or worry about uppercase.<br/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="modelAboutLabels" tabindex="-1" role="dialog" aria-labelledby="About Labels" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Labels File</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          This file should be a text file with a label per line.<br/>
+          Each label should be composed by the words it contains (i.e., a label may have spaces) and a boolean indicator (exactly 1 or 0) for positive or negative label. <br/>
+          The boolean value should be precedded by a "tab" character ('\t').
+          e.g.:<br/>
+          <code>
+            in n out	1<br/>
+            coca cola	1<br/>
+            different things to	0<br/>
+            fast food places	0<br/>
+            goat cheese	1<br/>
+            lunch sized	0<br/>
+            quite some time	0<br/>
+            finger food	1<br/>
+            or be prepared to	0<br/>
+            living in phoenix	0<br/>
+            ...
+          </code>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script>
     $(document).ready(()=>{
