@@ -2,7 +2,7 @@ import os
 import uuid
 import json
 import hashlib
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, send_from_directory
 from app import app
 from app import db
 from app.controllers.env_configs import EnvConf
@@ -57,6 +57,14 @@ def add_dataset():
     dataset_list = DatasetFile.query.all()
     label_list = LabelFile.query.all()
     return render_template('add_dataset.html', dataset_list=dataset_list, label_list=label_list)
+
+@app.route('/download/<filetypen>/<filehash>')
+def download_file(filetypen=None,filehash=None):
+    if filetypen == 'ds':
+        folder = os.path.abspath(EnvConf.dataset_dir)
+    elif filetypen == 'lbl':
+        folder = os.path.abspath(EnvConf.label_dir)
+    return send_from_directory(directory=folder, filename=filehash, mimetype='text/plain')
 
 @app.route('/train', methods=["POST"])
 def train():

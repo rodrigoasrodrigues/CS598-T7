@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                        <span class="text-muted">{{dataset.words}} words</span>
+                        <span class="text-muted">{{dataset.words}} words <a href="/download/ds/{{dataset.file_hash}}"><i class='fa fa-download'></i></a></span>
                     </li>
                     {% endfor %}
                 </ul>
@@ -98,7 +98,7 @@
                                 </label>
                             </div>
                         </div>
-                        <span class="text-muted">{{label.num_labels()}} labels</span>
+                        <span class="text-muted">{{label.num_labels()}} labels <a href="/download/ds/{{label.file_hash}}"><i class='fa fa-download'></i></a></span>
                     </li>
                     {% endfor %}
                 </ul>
