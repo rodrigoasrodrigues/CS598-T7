@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: a584a36010be
+Revision ID: 8b120b69a979
 Revises: 
-Create Date: 2020-05-10 02:52:10.941409
+Create Date: 2020-05-15 04:48:45.458759
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a584a36010be'
+revision = '8b120b69a979'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,9 +35,12 @@ def upgrade():
     )
     op.create_table('w2v_models',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('file_hash', sa.String(length=32), nullable=True),
+    sa.Column('file_hash', sa.String(length=36), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('words', sa.Integer(), nullable=True),
+    sa.Column('min_count', sa.Integer(), nullable=True),
+    sa.Column('window', sa.Integer(), nullable=True),
+    sa.Column('iterations', sa.Integer(), nullable=True),
     sa.Column('dataset_id', sa.Integer(), nullable=True),
     sa.Column('label_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['dataset_id'], ['dataset_files.id'], ),

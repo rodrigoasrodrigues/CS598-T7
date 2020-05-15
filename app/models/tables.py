@@ -60,7 +60,7 @@ class Word2VecModel(db.Model):
     __tablename__ = "w2v_models"
 
     id = db.Column(db.Integer, primary_key=True)
-    file_hash = db.Column(db.String(32), unique=False)
+    file_hash = db.Column(db.String(36), unique=False)
     description = db.Column(db.Text, unique=False)
     words = db.Column(db.Integer, primary_key=False)
     min_count = db.Column(db.Integer, primary_key=False)
